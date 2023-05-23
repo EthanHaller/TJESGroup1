@@ -13,7 +13,9 @@ function LoginPage() {
     }
 
     const attemptLogin = () => {
-
+        if(usernameExists(username) && passwordMatches(username, password)) {
+            //login
+        }
     }
 
     return (
@@ -30,12 +32,12 @@ function LoginPage() {
         </React.Fragment>
     )
 
-    function usernameExists() {
+    function usernameExists( username ) {
 
     }
 
-    function passwordMatches() {
-        
+    function passwordMatches( username, password ) {
+
     }
 }
 
