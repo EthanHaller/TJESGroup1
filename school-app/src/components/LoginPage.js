@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, TextField, Snackbar, Alert } from '@mui/material'
+import { Button, TextField, Snackbar, Alert, Box, Typography } from '@mui/material'
 import db from '../Firebase'
 import { collection, getDocs, query, where } from 'firebase/firestore'
 
@@ -27,41 +27,49 @@ function LoginPage() {
 
     const attemptLogin = () => {
         userAndPasswordMatch(username, password)
-            .then(match => {
-                match ? login() : handleShowError()
+            .then(role => {
+                role ? login(role) : handleShowError()
             })
     }
 
-    const login = () => {
-        //
+    const login = (role) => {
+        const currentUser = {
+            "username": username,
+            "password": password,
+            "role": role
+        }
+        
     }
 
     return (
-        <React.Fragment>
+        <Box sx={{display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', mt: '25vh', mx: '40%'}}>
+            <Typography variant='h4'>Log in</Typography>
             <TextField
                 label="Username"
                 onChange={changeUsername}
+                sx={{ width: '100%', m: '5%' }}
             />
             <TextField
                 label="Password"
                 onChange={changePassword}
+                sx={{ width: '100%', m: '5%' }}
             />
-            <Button onClick={() => attemptLogin()}>Login</Button>
+            <Button variant='contained' onClick={() => attemptLogin()} sx={{width: '40%', m: '5%'}}>Login</Button>
             <Snackbar open={showError} autoHideDuration={6000} onClose={handleClose}>
                 <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>Incorrect username or password!</Alert>
             </Snackbar>
-        </React.Fragment>
+        </Box>
     )
 
     async function userAndPasswordMatch( username, password ) {
         const users = collection(db, 'users')
         const q = query(users, where('username', '==', username), where('password', '==', password))
         const querySnapshot = await getDocs(q)
-        let exists = false
+        let role = null
         querySnapshot.forEach((doc) => {
-            exists = true
+            role = doc.data().role
         });
-        return exists;
+        return role;
     }
 }
 
