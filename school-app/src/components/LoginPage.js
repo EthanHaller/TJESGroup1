@@ -3,7 +3,7 @@ import { Button, TextField, Snackbar, Alert, Box, Typography } from '@mui/materi
 import db from '../Firebase'
 import { collection, getDocs, query, where } from 'firebase/firestore'
 
-function LoginPage() {
+function LoginPage({ setUser }) {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [showError, setShowError] = useState(false)
@@ -38,7 +38,7 @@ function LoginPage() {
             "password": password,
             "role": role
         }
-        
+        setUser(currentUser)
     }
 
     return (
