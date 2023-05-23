@@ -1,4 +1,5 @@
 import React from 'react';
+import ClassSearch from './components/ClassSearch'
 
 function App() {
   return (
@@ -11,6 +12,7 @@ function App() {
           Learn React
         </a>
       </header>
+      <ClassSearch />
     </div>
   );
 }
