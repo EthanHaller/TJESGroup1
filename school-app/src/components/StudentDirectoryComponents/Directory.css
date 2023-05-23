@@ -1,0 +1,54 @@
+.resultsTable {
+    display: flex;
+    flex-direction: column;
+    border: solid;
+    width: 50%;
+    margin: auto;
+    margin-top: 1%;
+    margin-left: 19%;
+
+}
+
+.studentLine {
+    display: flex;
+    border: solid;
+    width: 100%;
+    border-top: none;
+    border-right: none;
+    flex-direction: row;
+}
+
+.img {
+    width: 75px;
+    height: 75px;
+}
+
+.studentNameText {
+    font-size: 30px;
+}
+
+.studentGradeText {
+    font-size: 30px;
+    margin-left: 10%;
+}
+
+.searchBar {
+    margin-top: 10%;
+    width: 61%;
+}
+
+.deleteIcon {
+    width: 20px;
+    height: 20px;
+}
+
+.deleteButton {
+    margin: auto;
+    align-self: center;
+}
+
+.buttonBox {
+    margin-right: 3%;
+    margin-left: auto;
+    display: flex;
+}
