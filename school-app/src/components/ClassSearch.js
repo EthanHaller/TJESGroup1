@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { db } from './Firebase';
 import {collection, doc, getDocs} from "firebase/firestore";
-import { FormControl, MenuItem, Select, InputLabel, TextField, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+import { Button, FormControl, MenuItem, Select, InputLabel, TextField, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 
 
 function ClassSearch() {
@@ -70,7 +70,7 @@ function ClassSearch() {
   return (
     <div>
       <h2>TJES Class Search Page</h2>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '16px'}}>
       
       <TextField id="outlined-basic" label="Teacher Last Name" variant="outlined" value={inputValue} onChange={handleNameChange} />
       <FormControl>
@@ -91,9 +91,11 @@ function ClassSearch() {
         <MenuItem value={5}>5</MenuItem>
       </Select>
       </FormControl>
+      <Button onClick = {handleSearch}variant="contained" style={{ height: '56px' }}>Search</Button>
     </div>
 
-    <button onClick={handleSearch}>Search</button>
+    
+    
       
      
 
@@ -101,7 +103,7 @@ function ClassSearch() {
   <Table>
     <TableHead>
       <TableRow>
-        <TableCell style={{ fontWeight: 'bold' }}>Teacher</TableCell>
+        <TableCell style={{ fontWeight: 'bold' }}><Button>Teacher</Button></TableCell>
         <TableCell style={{ fontWeight: 'bold' }}>Subject</TableCell>
         <TableCell style={{ fontWeight: 'bold' }}>Grade Level</TableCell>
         <TableCell></TableCell>
