@@ -34,12 +34,16 @@
 
 .studentGradeText {
     font-size: 30px;
-    margin-left: 10%;
+    margin-left: auto;
 }
 
 .searchBar {
+    margin-left: auto;
+    margin-right: auto;
     margin-top: 10%;
     width: 61%;
+    display: flex;
+    flex-direction: row;
 }
 
 .deleteIcon {
@@ -104,4 +108,38 @@
 
   .visible {
     visibility: visible;
+  }
+
+  .editStudentBox {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .editStudentPic {
+    height: 125px;
+    width: 125px;
+    align-self: center;
+  }
+
+  .editStudentEditButton {
+    width: 15%;
+    align-self: center;
+  }
+
+  .studentNameTextBox {
+    width: 40%;
+  }
+
+  .studentYearTextBox {
+    width: 40%;
+  }
+
+  .editButton {
+    align-self: flex-start;
+    
+  }
+
+  .searchLabel {
+    font-weight: bold;
+    font-size: x-large;
   }

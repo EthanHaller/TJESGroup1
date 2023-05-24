@@ -1,6 +1,7 @@
 import {useState, React} from 'react';
 import {addDoc, collection} from "firebase/firestore";
 import db from '../../Firebase';
+import { Button } from '@mui/material';
 export default function SubmitForm({changeIsDataChanged, isDataChanged, togglePopup}) {
     const [formSubmitted, setFormSubmitted] = useState(false);
     function handleSubmit(e) {
@@ -50,11 +51,12 @@ export default function SubmitForm({changeIsDataChanged, isDataChanged, togglePo
       required
       />
     </label>
-    <button 
+    <Button 
+    variant='contained'
     className= "searchButton"
     type="submit"
     style= {{margin: "15px"}}
-    >Submit</button>
+    >Submit</Button>
   </form>
 }
 </div>

@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import {updateDoc, doc} from "firebase/firestore";
 import db from "../../Firebase";
+import silhouette from './silhouette.png'
+import { Button } from "@mui/material";
 export default function EditStudentForm({toggleStudentView, data, changeIsDataChanged, isDataChanged}) {
 
     const [isEdit, setIsEdit] = useState(true);
@@ -47,8 +49,9 @@ export default function EditStudentForm({toggleStudentView, data, changeIsDataCh
     return (
         <div className='submitForm'>
     {formSubmitted? <p1></p1> : 
-    <div>
-    <button onClick={handleEdit}>{isEditButton}</button>
+    <div className="editStudentBox">
+    <img src= {silhouette} className="editStudentPic"/>
+    <Button variant= "contained" onClick={handleEdit} className="editStudentEditButton">{isEditButton}</Button>
     <form method="post" onSubmit={handleSubmit}>
     <label>
       Name: 
@@ -80,11 +83,12 @@ export default function EditStudentForm({toggleStudentView, data, changeIsDataCh
       required
       />
     </label>
-    <button 
+    <Button 
     className= {isVisible}
     type="submit"
+    variant="contained"
     style= {{margin: "15px", visibility: {isVisible}}}
-    >Submit</button>
+    >Submit</Button>
   </form>
   </div>
 }

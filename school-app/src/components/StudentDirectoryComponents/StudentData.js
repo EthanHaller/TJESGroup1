@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import silhouette from './silhouette.png';
 import deleteIcon from './delete.png';
 import Button from '@mui/material/Button';
@@ -12,23 +12,24 @@ export default function StudentData({data, isEdit, changeIsDataChanged, isDataCh
         setIsStudentView(!isStudentView);
         setForStudentView(index);
     }
-
-
     function deleteStudent(student) {
         deleteDoc(doc(db, "students", student.id));
         changeIsDataChanged(!isDataChanged);
     }
-
     return (
         <>
             {data.map((element, index) =>
             <div className="studentLine">
             <img src={silhouette} className='img' onClick={() => {toggleStudentView(index)}}/>
+            <div className='studentNameTextBox'>
             <h1 className='studentNameText'>Name: {element.data.name}</h1>
+            </div>
+            <div className='studentYearTextBox'>
             <h1 className='studentGradeText'>Year: {element.data.year}</h1>
+            </div>
             <div className= "buttonBox">
             {isEdit? 
-            <button className= "deleteButton"><img className = "deleteIcon" src= {deleteIcon} onClick= {() => {deleteStudent(element)}}/></button>
+            <Button className= "deleteButton" variant='contained' color='error'><img className = "deleteIcon" src= {deleteIcon} onClick= {() => {deleteStudent(element)}}/></Button>
              : <p1></p1>
             }
             </div>
