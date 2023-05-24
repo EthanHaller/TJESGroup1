@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { db } from './Firebase';
 import {collection, doc, getDocs} from "firebase/firestore";
-import { Button, FormControl, MenuItem, Select, InputLabel, TextField, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+import { Button, FormControl, MenuItem, Select, InputLabel, TextField, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
 
 
 function ClassSearch() {
@@ -69,7 +69,7 @@ function ClassSearch() {
 
   return (
     <div>
-      <h2>TJES Class Search Page</h2>
+      <Typography variant='h2'>TJES Class Search Page</Typography>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '16px'}}>
       
       <TextField id="outlined-basic" label="Teacher Last Name" variant="outlined" value={inputValue} onChange={handleNameChange} />

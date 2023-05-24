@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Typography, Box, Grid, Divider } from '@mui/material';
+import React from 'react';
+import { Typography, Box } from '@mui/material';
 import Events from './Events';
 
 function Home() {
