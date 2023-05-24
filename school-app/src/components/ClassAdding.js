@@ -84,6 +84,7 @@ function ClassAdding() {
                 sx={{ width: '200px' }}
                 margin="normal"
               />
+              
               <TextField
                 label="Number of Students"
                 type="text"

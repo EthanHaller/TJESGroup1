@@ -23,22 +23,24 @@ function ClassSearch() {
 
   const handleSearch = () => {
     let filteredData = classes;
-
+  
     if (selectedGrade && selectedGrade !== '' && selectedGrade !== 'Select a grade') {
-      filteredData = filteredData.filter((item) => item.grade === parseInt(selectedGrade));
+      filteredData = filteredData.filter((item) => {
+        const itemGrade = typeof item.grade === 'string' ? parseInt(item.grade) : item.grade;
+        const selectedGradeValue = typeof selectedGrade === 'string' ? parseInt(selectedGrade) : selectedGrade;
+        return itemGrade === selectedGradeValue;
+      });
     }
-
+  
     if (inputValue && inputValue !== '' && inputValue !== undefined) {
       filteredData = filteredData.filter((item) =>
         item.teacher && item.teacher.toLowerCase().includes(inputValue.toLowerCase())
       );
     }
-
-    console.log(filteredData);
-    console.log(classes);
-
+  
     setFilteredClasses(filteredData);
   };
+  
 
   useEffect(() => {
     const fetchDocs = async () => {
