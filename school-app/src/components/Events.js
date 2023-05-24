@@ -3,6 +3,7 @@ import db from '../Firebase'
 import React from 'react'
 import { getDocs, collection } from "firebase/firestore";
 import {useEffect, useState} from 'react';
+import { Box, Typography } from "@mui/material";
 function Events() {
         const [calendarEvents, setCalendarEvents] = useState([]);
         const fetchEvents = async (successCallback, failureCallback) => {
@@ -39,7 +40,7 @@ function Events() {
 
     //   }, [calendarEvents]);
     return (
-        <MyCalendar event_array = {calendarEvents}/>
+      <MyCalendar event_array = {calendarEvents}/>
     );
 }
 export default Events;

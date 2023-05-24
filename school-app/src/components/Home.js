@@ -1,21 +1,25 @@
 import React, { useState } from 'react';
-import { Typography, Box, Grid } from '@mui/material';
+import { Typography, Box, Grid, Divider } from '@mui/material';
+import Events from './Events';
 
 function Home() {
     return (
       <React.Fragment>
-        <Grid container wrap='wrap'>
-          <Grid item xs={12} sm={5}>
-            <Typography variant='h1' sx={{ width: '40%' }}>Thomas Jefferson Elementary School</Typography>
-          </Grid>
-          <Grid item>
-          <img
-            src="https://bloximages.newyork1.vip.townnews.com/dailyprogress.com/content/tncms/assets/v3/editorial/f/d3/fd3caa8e-16b8-11e4-8968-0017a43b2370/53d6ed929dcac.image.jpg"
-            style={{ height: '100%', width: '100%', margin: '0' }}
-            alt=''
-          />
-          </Grid>
-        </Grid>
+        <Box
+          style={{
+            backgroundImage: "url(https://cdnsm5-ss2.sharpschool.com/UserFiles/Servers/Server_1057363/Image/Custom-Banner/TJES.jpg)",
+            backgroundRepeat:"no-repeat",
+            backgroundSize: '100vw 100%',
+            height: '40vw',
+            borderBottomStyle: 'solid'
+          }}
+        >
+          <Typography color='white' sx={{ typography: {xs: 'h5', sm: 'h4', md: 'h3', lg: 'h1'}, p: '50px' }}>Thomas Jefferson Elementary School</Typography>
+        </Box>
+        <Box pt='50px'>
+          <Typography variant='h3' display='flex' justifyContent='center'>Upcoming Events</Typography>
+          <Events />
+        </Box>
       </React.Fragment>
     );
 }

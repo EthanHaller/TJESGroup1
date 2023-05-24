@@ -25,12 +25,12 @@ function NavigationBar() {
                 <IconButton component={Link} to={"/" + userId + "/home"}>
                     <HomeIcon sx={{ color: 'white' }} />
                 </IconButton>
-                <Typography variant='body1'>{currentUser && ("Welcome, " + currentUser.username)}</Typography>
+                <Typography variant='body1' ml='10px' mr='10px'>{currentUser && ("Welcome, " + currentUser.username)}</Typography>
                 <Box sx={{ flexGrow: 1 }}></Box>
                 <Button variant='contained' sx={{ color: 'white', mr: '15px' }} component={Link} to="/">Logout</Button>
                 </Toolbar>
             </AppBar>
-            <div style={{ height: '90px' }}></div>
+            <div style={{ height: '64px' }}></div>
             <Outlet />
         </React.Fragment>
     )
