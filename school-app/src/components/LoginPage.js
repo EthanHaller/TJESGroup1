@@ -2,11 +2,14 @@ import React, { useState } from 'react'
 import { Button, TextField, Snackbar, Alert, Box, Typography } from '@mui/material'
 import db from '../Firebase'
 import { collection, getDocs, query, where } from 'firebase/firestore'
+import { Navigate } from 'react-router-dom'
 
 function LoginPage({ setUser }) {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [showError, setShowError] = useState(false)
+    const [canLogin, setCanLogin] = useState(false)
+    const [currentUser, setCurrentUser] = useState(null)
 
     const changeUsername = (e) => {
         setUsername(e.target.value)
@@ -27,20 +30,9 @@ function LoginPage({ setUser }) {
 
     const attemptLogin = () => {
         userAndPasswordMatch(username, password)
-            .then(role => {
-                role ? login(role) : handleShowError()
-            })
     }
 
-    const login = (role) => {
-        const currentUser = {
-            "username": username,
-            "password": password,
-            "role": role
-        }
-        setUser(currentUser)
-    }
-
+    if(currentUser) return ( <Navigate to={"/" + currentUser + "/home"} /> )
     return (
         <Box sx={{display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', mt: '25vh', mx: '40%'}}>
             <Typography variant='h4'>Log in</Typography>
@@ -65,11 +57,11 @@ function LoginPage({ setUser }) {
         const users = collection(db, 'users')
         const q = query(users, where('username', '==', username), where('password', '==', password))
         const querySnapshot = await getDocs(q)
-        let role = null
         querySnapshot.forEach((doc) => {
-            role = doc.data().role
+            setCurrentUser(doc.id)
+            return true
         });
-        return role;
+        handleShowError();
     }
 }
 
