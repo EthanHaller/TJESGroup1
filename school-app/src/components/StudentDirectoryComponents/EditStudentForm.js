@@ -1,0 +1,93 @@
+import { useState, useEffect } from "react";
+import {updateDoc, doc} from "firebase/firestore";
+import db from "../../Firebase";
+export default function EditStudentForm({toggleStudentView, data, changeIsDataChanged, isDataChanged}) {
+
+    const [isEdit, setIsEdit] = useState(true);
+    const [formSubmitted, setFormSubmitted] = useState(false);
+    const [isVisible, setIsVisible] = useState("hidden")
+    const [isEditButton, setIsEditButton] = useState("Edit Info");
+    useEffect(() => {
+        if (!isEdit)
+        setIsVisible("visible");
+        if (isEdit)
+        setIsVisible("hidden")
+    },[isEdit])
+
+    function handleSubmit(e) {
+        // Prevent the browser from reloading the page
+        e.preventDefault();
+    
+        // Read the form data
+        const form = e.target;
+        const formData = new FormData(form);
+    
+   
+        const formJson = Object.fromEntries(formData.entries());
+        setFormSubmitted(true);
+        updateDoc(doc(db, "students",data.id), {
+        name: formJson.name,
+        year: formJson.year,
+        address: formJson.address,
+        }
+        )
+        toggleStudentView();
+        changeIsDataChanged(!isDataChanged);
+        }
+
+        function handleEdit() {
+            setIsEdit(!isEdit);
+            if (isEdit)
+            setIsEditButton("Stop Editing");
+            if (!isEdit)
+            setIsEditButton("Edit Info");
+
+        }
+
+    return (
+        <div className='submitForm'>
+    {formSubmitted? <p1></p1> : 
+    <div>
+    <button onClick={handleEdit}>{isEditButton}</button>
+    <form method="post" onSubmit={handleSubmit}>
+    <label>
+      Name: 
+      <input
+      
+      name="name" 
+      defaultValue={data.data.name}
+      required
+      readOnly= {isEdit}
+      />
+    </label>
+    <label>
+      Year: 
+      <input
+      className= "textBoxes" 
+      name="year" 
+      required
+      readOnly={isEdit}
+      defaultValue={data.data.year}
+      />
+    </label>
+    <label>
+      Address: 
+      <input
+      className= "textBoxes" 
+      name="address"
+      readOnly={isEdit}
+      defaultValue={data.data.address}
+      required
+      />
+    </label>
+    <button 
+    className= {isVisible}
+    type="submit"
+    style= {{margin: "15px", visibility: {isVisible}}}
+    >Submit</button>
+  </form>
+  </div>
+}
+</div>
+    );
+}
