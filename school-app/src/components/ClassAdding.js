@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { db } from './Firebase';
 import { collection, doc, getDocs, addDoc } from 'firebase/firestore';
-import {Button} from '@mui/material';
+import {Button, TextField} from '@mui/material';
 
 function ClassAdding() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -45,6 +45,7 @@ function ClassAdding() {
 
   return (
     <div>
+      <br></br>
       <Button onClick={handlePopupOpen} variant='outlined'>Add a new Class!</Button>
       {isPopupOpen && (
         <div className="popup">
@@ -53,45 +54,47 @@ function ClassAdding() {
               &times;
             </span>
             <form onSubmit={handleSubmit}>
-              <label>
-                Teacher:
-                <input
-                  type="text"
-                  name="teacher"
-                  value={classData.teacher}
-                  onChange={handleInputChange}
-                />
-              </label>
-              <br />
-              <label>
-                Subject:
-                <input
-                  type="text"
-                  name="subject"
-                  value={classData.subject}
-                  onChange={handleInputChange}
-                />
-              </label>
-              <br />
-              <label>
-                Grade Level:
-                <input
-                  type="text"
-                  name="grade"
-                  value={classData.grade}
-                  onChange={handleInputChange}
-                />
-              </label>
-              <label>
-                Number of Students:
-                <input
-                  type="text"
-                  name="num"
-                  value={classData.num}
-                  onChange={handleInputChange}
-                />
-              </label>
-              <button type="submit">Add Class</button>
+              <TextField
+                label="Teacher"
+                type="text"
+                name="teacher"
+                value={classData.teacher}
+                onChange={handleInputChange}
+                size="small"
+                sx={{ width: '200px' }}
+                margin="normal"
+              />
+              <TextField
+                label="Subject"
+                type="text"
+                name="subject"
+                value={classData.subject}
+                onChange={handleInputChange}
+                size="small"
+                sx={{ width: '200px' }}
+                margin="normal"
+              />
+              <TextField
+                label="Grade Level"
+                type="text"
+                name="grade"
+                value={classData.grade}
+                onChange={handleInputChange}
+                size="small"
+                sx={{ width: '200px' }}
+                margin="normal"
+              />
+              <TextField
+                label="Number of Students"
+                type="text"
+                name="num"
+                value={classData.num}
+                onChange={handleInputChange}
+                size="small"
+                sx={{ width: '200px' }}
+                margin="normal"
+              />
+              <Button variant='contained' type="submit">Confirm</Button>
             </form>
           </div>
         </div>
