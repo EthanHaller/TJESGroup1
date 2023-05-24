@@ -8,7 +8,6 @@ function LoginPage({ setUser }) {
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
     const [showError, setShowError] = useState(false)
-    const [canLogin, setCanLogin] = useState(false)
     const [currentUser, setCurrentUser] = useState(null)
 
     const changeUsername = (e) => {
@@ -47,7 +46,7 @@ function LoginPage({ setUser }) {
                 sx={{ width: '100%', m: '5%' }}
             />
             <Button variant='contained' onClick={() => attemptLogin()} sx={{width: '40%', m: '5%'}}>Login</Button>
-            <Snackbar open={showError} autoHideDuration={6000} onClose={handleClose}>
+            <Snackbar open={showError} autoHideDuration={4000} onClose={handleClose}>
                 <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>Incorrect username or password!</Alert>
             </Snackbar>
         </Box>
