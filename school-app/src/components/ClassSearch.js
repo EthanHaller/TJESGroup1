@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { db } from './Firebase';
+import ClassAdding from './ClassAdding';
 import {collection, doc, getDocs} from "firebase/firestore";
 import { Button, FormControl, MenuItem, Select, InputLabel, TextField, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 
@@ -93,6 +94,7 @@ function ClassSearch() {
       </FormControl>
       <Button onClick = {handleSearch}variant="contained" style={{ height: '56px' }}>Search</Button>
     </div>
+    <ClassAdding />
 
     
     
