@@ -1,0 +1,145 @@
+.resultsTable {
+    display: flex;
+    flex-direction: column;
+    border: solid;
+    width: 50%;
+    margin: auto;
+    margin-top: 1%;
+    margin-left: 19%;
+
+}
+
+.studentLine {
+    display: flex;
+    border: solid;
+    width: 100%;
+    border-top: none;
+    border-right: none;
+    flex-direction: row;
+}
+
+.img {
+    width: 75px;
+    height: 75px;
+    cursor: pointer;
+}
+
+.img:hover {
+    opacity: 50%;
+}
+
+.studentNameText {
+    font-size: 30px;
+}
+
+.studentGradeText {
+    font-size: 30px;
+    margin-left: auto;
+}
+
+.searchBar {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10%;
+    width: 61%;
+    display: flex;
+    flex-direction: row;
+}
+
+.deleteIcon {
+    width: 20px;
+    height: 20px;
+}
+
+.deleteButton {
+    margin: auto;
+    align-self: center;
+}
+
+.buttonBox {
+    margin-right: 3%;
+    margin-left: auto;
+    display: flex;
+}
+
+/* Popup style */
+.popup-box {
+    position: fixed;
+    background: #00000050;
+    width: 100%;
+    height: 100vh;
+    top: 0;
+    left: 0;
+  }
+   
+  .box {
+    position: relative;
+    width: 70%;
+    margin: 0 auto;
+    height: auto;
+    max-height: 70vh;
+    margin-top: calc(100vh - 85vh - 20px);
+    background: #fff;
+    border-radius: 4px;
+    padding: 20px;
+    border: 1px solid #999;
+    overflow: auto;
+  }
+   
+  .close-icon {
+    content: 'x';
+    cursor: pointer;
+    position: fixed;
+    right: calc(15% - 30px);
+    top: calc(100vh - 85vh - 33px);
+    background: #ededed;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    line-height: 20px;
+    text-align: center;
+    border: 1px solid #999;
+    font-size: 20px;
+  }
+
+  .hidden {
+    visibility: hidden;
+  }
+
+  .visible {
+    visibility: visible;
+  }
+
+  .editStudentBox {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .editStudentPic {
+    height: 125px;
+    width: 125px;
+    align-self: center;
+  }
+
+  .editStudentEditButton {
+    width: 15%;
+    align-self: center;
+  }
+
+  .studentNameTextBox {
+    width: 40%;
+  }
+
+  .studentYearTextBox {
+    width: 40%;
+  }
+
+  .editButton {
+    align-self: flex-start;
+    
+  }
+
+  .searchLabel {
+    font-weight: bold;
+    font-size: x-large;
+  }
