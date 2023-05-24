@@ -3,6 +3,7 @@ import { Typography, Box } from '@mui/material';
 import Events from './Events';
 
 function Home() {
+  
     return (
       <React.Fragment>
         <Box
