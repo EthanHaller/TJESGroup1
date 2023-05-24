@@ -3,9 +3,9 @@ import Events from './components/Events'
 
 function App() {
   return (
-    <div style={{ textAlign: 'center' }}>
-      <Events />
-    </div>
+    <React.Fragment>
+
+    </React.Fragment>
   );
 }
 
