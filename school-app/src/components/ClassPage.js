@@ -1,99 +1,127 @@
 import React, { useState, useEffect } from 'react';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
-import  db  from '../Firebase';
-import { TextField, Button, Typography, Box, Container, List, ListItem, ListItemText, ListItemSecondaryAction } from '@mui/material';
-
+import db from '../Firebase';
+import { Grid, TextField, Button, Typography, Container } from '@mui/material';
+import { useParams } from 'react-router-dom';
 
 
 function ClassPage() {
+
   const [classData, setClassData] = useState(null);
+  const [studentsData, setStudentsData] = useState([]);
   const [editIndex, setEditIndex] = useState(-1);
   const [editValue, setEditValue] = useState({});
 
   // Use a specific class ID
-  const classId = 'OZQAjh82nJN2wsg3wXEs';
+  const { classId } = useParams();
+
+  
 
   useEffect(() => {
     const fetchClassData = async () => {
       const classDoc = doc(db, 'classes', classId);
-      const classData = await getDoc(classDoc);
+      const classDataSnapshot = await getDoc(classDoc);
 
-      if (classData.exists) {
-        setClassData(classData.data());
+      if (classDataSnapshot.exists) {
+        const data = classDataSnapshot.data();
+        setClassData(data);
+
+        const studentsPromises = data.roster.map((studentId) => getDoc(doc(db, 'students', studentId)));
+        const studentsSnapshots = await Promise.all(studentsPromises);
+
+        const studentsData = studentsSnapshots.map(snapshot => ({
+          ...snapshot.data(),
+          grade: snapshot.data().grades[data.subject], // replaced classId with data.subject
+        }));
+        setStudentsData(studentsData);
       } else {
         console.log('No such document!');
       }
     };
 
     fetchClassData();
-  }, []);
+  }, [classId]);
+
 
   const handleEditClick = (index) => {
     setEditIndex(index);
     setEditValue({
-      name: classData.roster[index].name,
-      grade: classData.roster[index].grade
+      name: studentsData[index].name,
+      grade: studentsData[index].grade
     });
   }
 
   const handleSaveClick = async () => {
-    const newRoster = [...classData.roster];
-    newRoster[editIndex] = editValue;
-
-    await setDoc(doc(db, 'classes', classId), {
-      ...classData,
-      roster: newRoster
+    if (editIndex !== -1) {
+      const newStudentsData = [...studentsData];
+      newStudentsData[editIndex].name = editValue.name;
+      newStudentsData[editIndex].grade = editValue.grade;
+  
+      const studentId = classData.roster[editIndex];
+  
+      await setDoc(doc(db, 'students', studentId), {
+        name: editValue.name,
+        grades: {
+          ...newStudentsData[editIndex].grades,
+          [classData.subject]: editValue.grade,
+        },
+      });
+  
+      // Update the local state with the updated student data
+      setStudentsData(newStudentsData);
+      setEditIndex(-1);
+      setEditValue({});
+    }
+  };
+  const handleEditChange = (field, value) => {
+    setEditValue({
+      ...editValue,
+      [field]: value
     });
-
-    setClassData({
-      ...classData,
-      roster: newRoster
-    });
-
-    setEditIndex(-1);
-    setEditValue({});
   }
-
-  if (!classData) {
+  if (!classData || studentsData.length === 0) {
     return <div>Loading...</div>;
   }
 
   return (
-    <Container maxWidth="sm">
-      <Typography variant="h2" align="center" gutterBottom>XYZ Class Page</Typography>
-      <Typography variant="h5">Teacher: {classData.teacher}</Typography>
-      <Typography variant="h5">Grade: {classData.grade}</Typography>
-      <Typography variant="h5">Subject: {classData.subject}</Typography>
-      <Typography variant="h5">Class Size: {classData.num}</Typography>
-      <Typography variant="h5" gutterBottom>Roster</Typography>
-      <List>
-        {classData.roster.map((student, index) => {
-          if (index === editIndex) {
-            return (
-              <ListItem key={index}>
-                <ListItemText>
-                  <TextField label="Name" variant="outlined" value={editValue.name} onChange={e => setEditValue({ ...editValue, name: e.target.value })} />
-                  <TextField label="Grade" variant="outlined" type="number" value={editValue.grade} onChange={e => setEditValue({ ...editValue, grade: e.target.value })} />
-                </ListItemText>
-                <ListItemSecondaryAction>
-                  <Button variant="contained" color="primary" onClick={handleSaveClick}>Save</Button>
-                </ListItemSecondaryAction>
-              </ListItem>
-            );
-          } else {
-            return (
-              <ListItem key={index}>
-                <ListItemText primary={`Name: ${student.name}`} secondary={`Grade: ${student.grade}`} />
-                <ListItemSecondaryAction>
-                  <Button variant="contained" color="secondary" onClick={() => handleEditClick(index)}>Edit</Button>
-                </ListItemSecondaryAction>
-              </ListItem>
-            );
-          }
-        })}
-      </List>
-    </Container>
+    <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+      <h2>{classData.name}</h2>
+      <div>
+      <h2>Class Page</h2>
+        <Typography variant="h6">Subject: {classData.subject}</Typography>
+        <Typography variant="h6">Grade: {classData.grade}</Typography>
+        <Typography variant="h6">Teacher: {classData.teacher}</Typography>
+        <Typography variant="h6">Class Size: {classData.num}</Typography>
+      </div>
+      {studentsData && studentsData.length > 0 &&
+        <div style={{ marginTop: '2rem' }}>
+          <Container>
+            <Typography variant="h5" style={{textAlign: 'center' }}>Roster:</Typography>
+            <Grid container spacing={3} style={{ marginTop: '1rem', maxWidth: '500px', margin: 'auto' }}>
+              <Grid item xs={4}><Typography variant="h6">Name</Typography></Grid>
+              <Grid item xs={4}><Typography variant="h6">Grade</Typography></Grid>
+              <Grid item xs={4}><Typography variant="h6">Action</Typography></Grid>
+              {studentsData.map((student, index) => (
+                editIndex === index ? (
+                  <React.Fragment key={index}>
+                    <Grid item xs={4}><TextField value={editValue.name} onChange={(e) => handleEditChange('name', e.target.value)} label="Name" /></Grid>
+                    <Grid item xs={4}><TextField value={editValue.grade} onChange={(e) => handleEditChange('grade', e.target.value)} label="Grade" /></Grid>
+                    <Grid item xs={4}><Button variant="contained" onClick={handleSaveClick}>Save</Button></Grid>
+                  </React.Fragment>
+                ) : (
+                  <React.Fragment key={index}>
+                    <Grid item xs={4}><Typography variant="body1">{student.name}</Typography></Grid>
+                    <Grid item xs={4}><Typography variant="body1">{student.grade}</Typography></Grid>
+                    <Grid item xs={4}><Button variant="contained" onClick={() => handleEditClick(index)}>Edit</Button></Grid>
+                  </React.Fragment>
+                )
+              ))}
+            </Grid>
+          </Container>
+        </div>
+      }
+    </div>
   );
-}
+  }
 
 export default ClassPage;
