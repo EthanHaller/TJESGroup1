@@ -1,16 +1,16 @@
-import React from 'react';
-import ClassPage from './components/ClassPage'; // adjust the path as needed
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import ClassPage from './components/ClassPage';
+import ClassSearch from './components/ClassSearch';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <h1></h1>
-      </header>
-      <main>
-        <ClassPage />
-      </main>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/class/:classId" element={<ClassPage />} />
+        <Route path="/search" element={<ClassSearch />} />
+        <Route path="/" element={<ClassSearch />} />
+      </Routes>
+    </Router>
   );
 }
 
