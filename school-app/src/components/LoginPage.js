@@ -36,13 +36,16 @@ function LoginPage({ setUser }) {
         <Box sx={{display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', mt: '25vh', mx: '40%'}}>
             <Typography variant='h4'>Log in</Typography>
             <TextField
+                error = {showError}
                 label="Username"
                 onChange={changeUsername}
                 sx={{ width: '100%', m: '5%' }}
             />
             <TextField
+                error = {showError}
                 label="Password"
                 onChange={changePassword}
+                type='password'
                 sx={{ width: '100%', m: '5%' }}
             />
             <Button variant='contained' onClick={() => attemptLogin()} sx={{width: '40%', m: '5%'}}>Login</Button>

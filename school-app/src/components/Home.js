@@ -5,8 +5,8 @@ function Home() {
     return (
       <React.Fragment>
         <Grid container wrap='wrap'>
-          <Grid item xs={12} sm={6}>
-          <Typography variant='h1' sx={{ width: '40%' }}>Thomas Jefferson Elementary School</Typography>
+          <Grid item xs={12} sm={5}>
+            <Typography variant='h1' sx={{ width: '40%' }}>Thomas Jefferson Elementary School</Typography>
           </Grid>
           <Grid item>
           <img
