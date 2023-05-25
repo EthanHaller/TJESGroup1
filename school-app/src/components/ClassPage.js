@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { doc, getDoc, setDoc, updateDoc, addDoc, collection } from 'firebase/firestore';
+import { doc, getDoc, setDoc, updateDoc, addDoc, collection, userId} from 'firebase/firestore';
 import db from '../Firebase';
 import { Box, Card, CardContent, TextField, Button, Typography, Container, Grid, Paper } from '@mui/material';
 import { useParams, Link } from 'react-router-dom';
@@ -75,7 +75,7 @@ function ClassPage() {
           [classData.subject]: editValue.grade,
         },
       });
-
+      // Update the local state with the updated student data
       setStudentsData(newStudentsData);
       setEditIndex(-1);
       setEditValue({});
@@ -153,7 +153,7 @@ function ClassPage() {
               <TextField value={newStudent.name} onChange={(e) => handleNewStudentChange('name', e.target.value)} label="Name" />
             </Grid>
             <Grid item xs={4}>
-              <TextField value={newStudent.grade} onChange={(e) => handleNewStudentChange('grade', e.target.value)} label="Class grade" />
+              <TextField value={newStudent.grade} onChange={(e) => handleNewStudentChange('grade', e.target.value)} label="Class Grade" />
             </Grid>
             <Grid item xs={4}>
               <Button variant="contained" color="primary" onClick={handleAddClick}>
