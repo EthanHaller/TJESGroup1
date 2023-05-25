@@ -53,7 +53,8 @@ export default function EditStudentForm({toggleStudentView, data, changeIsDataCh
     <img src= {silhouette} className="editStudentPic"/>
     {(currentUser.role === "admin") && <Button variant= "contained" onClick={handleEdit} className="editStudentEditButton">{isEditButton}</Button>}
     <form method="post" onSubmit={handleSubmit}>
-    <label>
+      <div className="editStudentLabels">
+    <label className="editStudentLabel">
       Name: 
       <input
       
@@ -63,7 +64,7 @@ export default function EditStudentForm({toggleStudentView, data, changeIsDataCh
       readOnly= {isEdit}
       />
     </label>
-    <label>
+    <label className="editStudentLabel">
       Year: 
       <input
       className= "textBoxes" 
@@ -73,7 +74,7 @@ export default function EditStudentForm({toggleStudentView, data, changeIsDataCh
       defaultValue={data.data.year}
       />
     </label>
-    <label>
+    <label className="editStudentLabel">
       Address: 
       <input
       className= "textBoxes" 
@@ -83,12 +84,15 @@ export default function EditStudentForm({toggleStudentView, data, changeIsDataCh
       required
       />
     </label>
+    </div>
+    <div className="editStudentButton">
     <Button 
     className= {isVisible}
     type="submit"
     variant="contained"
     style= {{margin: "15px", visibility: {isVisible}}}
     >Submit</Button>
+    </div>
   </form>
   </div>
 }

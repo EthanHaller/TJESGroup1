@@ -53,6 +53,7 @@ export default function EditTeacherForm({toggleTeacherView, data, changeIsDataCh
     <img src= {silhouette} className="editTeacherPic"/>
     {(currentUser.role === "admin") && <Button variant= "contained" onClick={handleEdit} className="editTeacherEditButton">{isEditButton}</Button>}
     <form method="post" onSubmit={handleSubmit}>
+      <div className="editStudentLabels">
     <label>
       Name: 
       <input
@@ -83,12 +84,15 @@ export default function EditTeacherForm({toggleTeacherView, data, changeIsDataCh
       required
       />
     </label>
+    </div>
+    <div className="editStudentButton">
     <Button 
     className= {isVisible}
     type="submit"
     variant="contained"
     style= {{margin: "15px", visibility: {isVisible}}}
     >Submit</Button>
+    </div>
   </form>
   </div>
 }

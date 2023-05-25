@@ -1,20 +1,20 @@
 .resultsTable {
     display: flex;
     flex-direction: column;
-    border: solid;
-    width: 50%;
+    border: groove;
     margin: auto;
     margin-top: 1%;
-    margin-left: 19%;
+    margin-left: 0%;
 
 }
 
 .studentLine {
     display: flex;
-    border: solid;
+    border: groove;
     width: 100%;
     border-top: none;
     border-right: none;
+    border-left: none;
     flex-direction: row;
 }
 
@@ -36,19 +36,31 @@
 }
 
 .studentNameText {
-    font-size: 30px;
+    font-size: 25px;
+    width: 50%;
 }
 
 .studentGradeText {
-    font-size: 30px;
-    margin-left: auto;
+    font-size: 25px;
+    width: 30%;
+}
+
+.studentAddressTextBox {
+  margin-right: 2%;
+  font-size: 30px;
+  width: 33%;
+}
+
+.studentAddressText {
+  font-size: 25px;
 }
 
 .searchBar {
-    margin-left: auto;
+    margin-left: 0%;
     margin-right: auto;
-    margin-top: 10%;
+    margin-top: 3%;
     width: 61%;
+    height: 10%;
     display: flex;
     flex-direction: row;
 }
@@ -111,10 +123,20 @@
 
   .hidden {
     visibility: hidden;
+    margin: auto;
   }
 
   .visible {
     visibility: visible;
+    align-self: center;
+  }
+
+  .editStudentButton {
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   .editStudentBox {
@@ -134,11 +156,11 @@
   }
 
   .studentNameTextBox {
-    width: 40%;
+    width: 33%;
   }
 
   .studentYearTextBox {
-    width: 40%;
+    width: 33%;
   }
 
   .editButton {
@@ -149,4 +171,24 @@
   .searchLabel {
     font-weight: bold;
     font-size: x-large;
+  }
+
+  .editStudentLabels {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 10%;
+  }
+
+  .studentTitleBox {
+    margin: auto;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .studentNameEdit {
+    font-size: 30px;
+    margin: auto;
   }

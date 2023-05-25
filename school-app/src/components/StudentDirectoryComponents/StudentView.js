@@ -6,7 +6,9 @@ export default function StudentView({data, isStudentView, toggleStudentView, ind
         <div>
     {isStudentView && <Popup
       content={<>
-        <b>{data[index].data.name}</b>
+        <div className="studentTitleBox">
+        <h3 className="studentNameEdit">{data[index].data.name}</h3>
+        </div>
         <EditStudentForm toggleStudentView={toggleStudentView} data={data[index]} changeIsDataChanged={changeIsDataChanged} isDataChanged={isDataChanged} currentUser={currentUser}/>
     </>}
       handleClose={toggleStudentView}

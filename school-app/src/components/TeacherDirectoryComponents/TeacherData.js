@@ -27,6 +27,9 @@ export default function TeacherData({data, isEdit, changeIsDataChanged, isDataCh
             <div className='teacherYearTextBox'>
             <h1 className='teacherGradeText'>Grade Taught: {element.data.gradeTaught}</h1>
             </div>
+            <div className="teacherEmailTextBox">
+            <h1 className="teacherEmailText">Email: {element.data.email}</h1>
+            </div>
             <div className= "buttonBox">
             {isEdit? 
             <Button className= "deleteButton" variant='contained' color='error'><img className = "deleteIcon" src= {deleteIcon} onClick= {() => {deleteTeacher(element)}}/></Button>

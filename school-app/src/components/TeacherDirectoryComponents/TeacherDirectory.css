@@ -1,14 +1,4 @@
-.resultsTable {
-    display: flex;
-    flex-direction: column;
-    border: solid;
-    width: 50%;
-    margin: auto;
-    margin-top: 1%;
-    margin-left: 19%;
-    margin-bottom: 5%;
 
-}
 
 .scrollBox {
   height: 700px;
@@ -21,8 +11,9 @@
 
 .teacherLine {
     display: flex;
-    border: solid;
+    border: groove;
     width: 100%;
+    border-left: none;
     border-top: none;
     border-right: none;
     flex-direction: row;
@@ -39,21 +30,22 @@
 }
 
 .teacherNameText {
-    font-size: 30px;
+    font-size: 25px;
 }
 
 .teacherGradeText {
-    font-size: 30px;
+    font-size: 25px;
     margin-left: auto;
 }
 
-.searchBar {
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 10%;
-    width: 61%;
-    display: flex;
-    flex-direction: row;
+.teacherEmailTextBox {
+  margin-right: 2%;
+  font-size: 30px;
+  width: 33%;
+}
+
+.teacherEmailText {
+  font-size: 25px;
 }
 
 .deleteIcon {
@@ -112,14 +104,6 @@
     font-size: 20px;
   }
 
-  .hidden {
-    visibility: hidden;
-  }
-
-  .visible {
-    visibility: visible;
-  }
-
   .editTeacherBox {
     display: flex;
     flex-direction: column;
@@ -137,11 +121,11 @@
   }
 
   .teacherNameTextBox {
-    width: 40%;
+    width: 33%;
   }
 
   .teacherYearTextBox {
-    width: 40%;
+    width: 33%;
   }
 
   .editButton {
