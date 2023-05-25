@@ -6,10 +6,20 @@
     margin: auto;
     margin-top: 1%;
     margin-left: 19%;
+    margin-bottom: 5%;
 
 }
 
-.studentLine {
+.scrollBox {
+  height: 700px;
+  scroll-behavior: auto;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+
+
+.teacherLine {
     display: flex;
     border: solid;
     width: 100%;
@@ -28,11 +38,11 @@
     opacity: 50%;
 }
 
-.studentNameText {
+.teacherNameText {
     font-size: 30px;
 }
 
-.studentGradeText {
+.teacherGradeText {
     font-size: 30px;
     margin-left: auto;
 }
@@ -110,27 +120,27 @@
     visibility: visible;
   }
 
-  .editStudentBox {
+  .editTeacherBox {
     display: flex;
     flex-direction: column;
   }
 
-  .editStudentPic {
+  .editTeacherPic {
     height: 125px;
     width: 125px;
     align-self: center;
   }
 
-  .editStudentEditButton {
+  .editTeacherEditButton {
     width: 15%;
     align-self: center;
   }
 
-  .studentNameTextBox {
+  .teacherNameTextBox {
     width: 40%;
   }
 
-  .studentYearTextBox {
+  .teacherYearTextBox {
     width: 40%;
   }
 
