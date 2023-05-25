@@ -11,7 +11,6 @@ function ClassPage() {
   const [studentsData, setStudentsData] = useState([]);
   const [editIndex, setEditIndex] = useState(-1);
   const [editValue, setEditValue] = useState({});
-  const [teacherData, setTeacherData] = useState(null);
 
   // Use a specific class ID
   const { classId } = useParams();
