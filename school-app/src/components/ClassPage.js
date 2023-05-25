@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import db from '../Firebase';
 import { Box, Card, CardContent, TextField, Button, Typography, Container, Grid, Paper } from '@mui/material';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 
 
 
@@ -15,9 +15,9 @@ function ClassPage() {
   const [teacherData, setTeacherData] = useState(null);
 
   // Use a specific class ID
-  const { classId } = useParams();
-
-
+  const params = useParams();
+  const classId = params.classId
+  const userId = params.id
 
   useEffect(() => {
     const fetchClassData = async () => {
@@ -100,6 +100,7 @@ function ClassPage() {
   return (
     <Container maxWidth="md">
       <Box my={4}>
+        <Button variant='contained' component={Link} to={`/${userId}/classes`}>Back to Classes</Button>
         <Card elevation={3}>
           <CardContent>
             <Typography variant="h4" component="div" gutterBottom>{classData.name}</Typography>
