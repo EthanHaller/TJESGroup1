@@ -37,23 +37,22 @@ function LoginPage({ setUser }) {
         <>
         <Box sx={{display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column', mt: '25vh', mx: '40%'}}>
             
-            <Typography variant='h4'>Log in</Typography>
-            <form onSubmit = {attemptLogin}>
-            
+            <form onSubmit = {attemptLogin} style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                <Typography variant='h4'>Log in</Typography>
                 <TextField
                     error = {showError}
                     label="Username"
                     onChange={changeUsername}
-                    sx={{ width: '100%', m: '5%' }}
+                    sx={{ width: '150%', m: '5%' }}
                 />
                 <TextField
                     error = {showError}
                     label="Password"
                     onChange={changePassword}
                     type='password'
-                    sx={{ width: '100%', m: '5%' }}
+                    sx={{ width: '150%', m: '5%' }}
                 />
-                <Button type = "submit" variant='contained' sx={{width: '40%', m: '5%'}}>Login</Button>
+                <Button type = "submit" variant='contained' sx={{width: '80%', m: '5%'}}>Login</Button>
             </form>
             <Snackbar open={showError} autoHideDuration={4000} onClose={handleClose}>
                 <Alert onClose={handleClose} severity="error" sx={{ width: '100%' }}>Incorrect username or password!</Alert>
