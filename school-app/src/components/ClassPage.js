@@ -60,7 +60,7 @@ function ClassPage() {
   const handleEditClick = (index) => {
     setEditIndex(index);
     setEditValue({
-      name: studentsData[index].name,
+      name: studentsData[index]?.name,
       grade: studentsData[index].grade
     });
   }
@@ -93,7 +93,7 @@ function ClassPage() {
       [field]: value
     });
   }
-  if (!classData || studentsData.length === 0) {
+  if (!classData) {
     return <div>Loading...</div>;
   }
 
@@ -102,45 +102,67 @@ function ClassPage() {
       <Box my={4}>
         <Card elevation={3}>
           <CardContent>
-            <Typography variant="h4" component="div" gutterBottom>{classData.name}</Typography>
-            <Typography variant="h6" component="div"><b>Subject:</b> {classData.subject}</Typography>
-            <Typography variant="h6" component="div"><b>Grade:</b> {classData.grade}</Typography>
-            <Typography variant="h6" component="div"><b>Teacher:</b> {teacherData ? teacherData.name : 'Loading...'}</Typography>
-            <Typography variant="h6" component="div"><b>Class Size:</b> {classData.num}</Typography>
+            <Typography variant="h4" component="div" gutterBottom>
+              {classData.name}
+            </Typography>
+            <Typography variant="h6" component="div">
+              <b>Subject:</b> {classData.subject}
+            </Typography>
+            <Typography variant="h6" component="div">
+              <b>Grade:</b> {classData.grade}
+            </Typography>
+            <Typography variant="h6" component="div">
+              <b>Teacher:</b> {teacherData ? teacherData.name : 'Loading...'}
+            </Typography>
+            <Typography variant="h6" component="div">
+              <b>Class Size:</b> {classData.num}
+            </Typography>
           </CardContent>
         </Card>
-        <Box my={4}>
-          <Paper elevation={3} sx={{ padding: 2 }}>
-            <Typography variant="h5" gutterBottom><b>Roster</b></Typography>
-            <Grid container spacing={2} alignItems="center">
-              <Grid item xs={4}><Typography variant="h6" style={{ textDecoration: 'underline' }}>Name</Typography></Grid>
-              <Grid item xs={4}><Typography variant="h6" style={{ textDecoration: 'underline' }}>Grade</Typography></Grid>
-              <Grid item xs={4}><Typography variant="h6" style={{ textDecoration: 'underline' }}>Action</Typography></Grid>
-
-              {studentsData.map((student, index) => (
-                editIndex === index ? (
-                  <React.Fragment key={index}>
-                    <Grid item xs={4}>
-                      <TextField value={editValue.name || ''} onChange={(e) => handleEditChange('name', e.target.value)} label="Name" />
-                    </Grid>
-                    <Grid item xs={4}>
-                      <TextField value={editValue.grade || ''} onChange={(e) => handleEditChange('grade', e.target.value)} label="Grade" />
-                    </Grid>
-                    <Grid item xs={4}>
-                      <Button variant="contained" color="primary" onClick={handleSaveClick}>Save</Button>
-                    </Grid>
-                  </React.Fragment>
-                ) : (
-                  <React.Fragment key={index}>
-                    <Grid item xs={4}><Typography variant="body1">{student.name || 'N/A'}</Typography></Grid>
-                    <Grid item xs={4}><Typography variant="body1">{student.grade || 'N/A'}</Typography></Grid>
-                    <Grid item xs={4}><Button variant="contained" onClick={() => handleEditClick(index)}>Edit</Button></Grid>
-                  </React.Fragment>
-                )
-              ))}
-            </Grid>
-          </Paper>
-        </Box>
+        {studentsData.length > 0 ? (
+          <Box my={4}>
+            <Paper elevation={3} sx={{ padding: 2 }}>
+              <Typography variant="h5" gutterBottom>
+                <b>Roster</b>
+              </Typography>
+              <Grid container spacing={2} alignItems="center">
+                {studentsData.map((student, index) =>
+                  editIndex === index ? (
+                    <React.Fragment key={index}>
+                      <Grid item xs={4}>
+                        <TextField value={editValue.name || ''} onChange={(e) => handleEditChange('name', e.target.value)} label="Name" />
+                      </Grid>
+                      <Grid item xs={4}>
+                        <TextField value={editValue.grade || ''} onChange={(e) => handleEditChange('grade', e.target.value)} label="Grade" />
+                      </Grid>
+                      <Grid item xs={4}>
+                        <Button variant="contained" color="primary" onClick={handleSaveClick}>
+                          Save
+                        </Button>
+                      </Grid>
+                    </React.Fragment>
+                  ) : (
+                    <React.Fragment key={index}>
+                      <Grid item xs={4}>
+                        <Typography variant="body1">{student.name || 'N/A'}</Typography>
+                      </Grid>
+                      <Grid item xs={4}>
+                        <Typography variant="body1">{student.grade || 'N/A'}</Typography>
+                      </Grid>
+                      <Grid item xs={4}>
+                        <Button variant="contained" onClick={() => handleEditClick(index)}>
+                          Edit
+                        </Button>
+                      </Grid>
+                    </React.Fragment>
+                  )
+                )}
+              </Grid>
+            </Paper>
+          </Box>
+        ) : (
+          <Typography variant="h6">No roster data available.</Typography>
+        )}
       </Box>
     </Container>
   );
