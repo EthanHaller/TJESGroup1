@@ -5,7 +5,7 @@ import db from '../../Firebase';
 import {collection, getDocs} from 'firebase/firestore';
 import { Button } from '@mui/material';
 import TextField from '@mui/material/TextField';
-export default function SearchBar() {
+export default function SearchBar({ currentUser }) {
 
   //useStates to load components
   const [isEdit, setIsEdit] = useState(false);
@@ -77,18 +77,16 @@ export default function SearchBar() {
             </label> 
             <Button type='submit' variant='contained'>Search</Button>
             </form>
-            {isEdit? <Button className="editButton" onClick={handleClick} variant='contained' color='error'>Stop Editing</Button> : 
+            {(currentUser.role === "admin") && (isEdit? <Button className="editButton" onClick={handleClick} variant='contained' color='error'>Stop Editing</Button> : 
             <Button className="editButton" onClick={handleClick} variant='contained'>Edit</Button>
-            }
+            )}
             {isEdit? <AddTeacher changeIsDataChanged={changeIsDataChanged} isDataChanged={isDataChanged}/> :
             <p1></p1>
             }
             </div>
             {!sortedTeachers? <p1></p1> : 
             <div className='resultsTable'>
-                <div className='scrollBox'>
-                    <TeacherData data= {sortedTeachers} isEdit={isEdit} changeIsDataChanged={changeIsDataChanged} isDataChanged={isDataChanged}/>
-                    </div>
+                    <TeacherData data= {sortedTeachers} isEdit={isEdit} changeIsDataChanged={changeIsDataChanged} isDataChanged={isDataChanged} currentUser={currentUser}/>
             </div>
             }
             

@@ -5,7 +5,7 @@ import Button from '@mui/material/Button';
 import {doc, deleteDoc} from "firebase/firestore";
 import db from '../../Firebase';
 import StudentView from './StudentView';
-export default function StudentData({data, isEdit, changeIsDataChanged, isDataChanged}) {
+export default function StudentData({data, isEdit, changeIsDataChanged, isDataChanged, currentUser}) {
     const [forStudentView, setForStudentView] = useState(-1);
     const [isStudentView, setIsStudentView] = useState(false);
     function toggleStudentView(index) {
@@ -37,7 +37,7 @@ export default function StudentData({data, isEdit, changeIsDataChanged, isDataCh
             )}
              {!isStudentView? <p1></p1> :
             <StudentView data={data} isStudentView={isStudentView} toggleStudentView={toggleStudentView} 
-            index={forStudentView} changeIsDataChanged={changeIsDataChanged} isDataChanged={isDataChanged}/>
+            index={forStudentView} changeIsDataChanged={changeIsDataChanged} isDataChanged={isDataChanged} currentUser={currentUser}/>
             }
         </>
     );

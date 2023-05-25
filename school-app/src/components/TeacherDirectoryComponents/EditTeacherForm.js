@@ -3,7 +3,7 @@ import {updateDoc, doc} from "firebase/firestore";
 import db from "../../Firebase";
 import silhouette from './silhouette.png'
 import { Button } from "@mui/material";
-export default function EditTeacherForm({toggleTeacherView, data, changeIsDataChanged, isDataChanged}) {
+export default function EditTeacherForm({toggleTeacherView, data, changeIsDataChanged, isDataChanged, currentUser}) {
 
     const [isEdit, setIsEdit] = useState(true);
     const [formSubmitted, setFormSubmitted] = useState(false);
@@ -49,9 +49,9 @@ export default function EditTeacherForm({toggleTeacherView, data, changeIsDataCh
     return (
         <div className='submitForm'>
     {formSubmitted? <p1></p1> : 
-    <div className="editTeacherBox">
-    <img src= {silhouette} className="editTeacherPic"/>
-    <Button variant= "contained" onClick={handleEdit} className="editTeacherEditButton">{isEditButton}</Button>
+    <div className="editStudentBox">
+    <img src= {silhouette} className="editStudentPic"/>
+    {(currentUser.role === "admin") && <Button variant= "contained" onClick={handleEdit} className="editStudentEditButton">{isEditButton}</Button>}
     <form method="post" onSubmit={handleSubmit}>
     <label>
       Name: 

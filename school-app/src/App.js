@@ -1,17 +1,25 @@
 import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import LoginPage from './components/LoginPage';
+import NavigationBar from './components/NavigationBar';
+import Home from './components/Home';
+import ClassSearch from './components/ClassSearch';
+import StudentDirectoryPage from './components/StudentDirectoryComponents/StudentDirectoryPage'
+import TeacherDirectoryPage from './components/TeacherDirectoryComponents/TeacherDirectoryPage'
 
 function App() {
   return (
-    <div style={{ textAlign: 'center' }}>
-      <header>
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<LoginPage />} />
+        <Route path="/:id" element={<NavigationBar />} >
+          <Route path="/:id/home" element={<Home />} />
+          <Route path="/:id/classes" element={<ClassSearch />} />
+          <Route path="/:id/students" element={<StudentDirectoryPage />} />
+          <Route path="/:id/staff" element={<TeacherDirectoryPage />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
