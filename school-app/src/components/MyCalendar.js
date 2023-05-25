@@ -45,6 +45,7 @@ function MyCalendar(props) {
     return (
        <Box mt='80px' ml='80px' mr='80px' pb='80px'>
           <CssBaseline />
+          { props.isAdmin ? 
           <FullCalendar
           
           plugins={[ dayGridPlugin ]}
@@ -69,6 +70,20 @@ function MyCalendar(props) {
           }}
           style={{ width: '100%', margin: '0 auto' }}
           />
+          :
+          <FullCalendar
+          
+          plugins={[ dayGridPlugin ]}
+          events = {props.event_array}
+          initialView="dayGridMonth"
+          headerToolbar = {{
+            left: "prevYear,prev,next,nextYear",
+            center: "title",
+            right: "dayGridDay,dayGridWeek,dayGridMonth"
+          }}
+          style={{ width: '100%', margin: '0 auto' }}
+          />
+        }
       </Box> 
     );
 }
