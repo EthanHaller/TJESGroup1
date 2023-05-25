@@ -12,7 +12,9 @@ function MyCalendar(props) {
   }
   const handleAddEventsClick = () => {
     const titleResponse = prompt('What is the title of your event?');
+    if (!titleResponse) return
     const startResponse = prompt('What is the start date of your event? (YYYY-MM-DD)')
+    if (!startResponse) return
     const endResponse = prompt('What is the end date of your event? (YYYY-MM-DD)')
     if(titleResponse && startResponse && endResponse) {
       addDoc(collection(db, 'calendar'), {

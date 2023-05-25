@@ -44,11 +44,11 @@ function NavigationBar() {
 async function getUser( id ) {
     const docRef = doc(db, "users", id);
     const docSnap = await getDoc(docRef);
-    const cUser = {
+    const currentUser = {
         "username": docSnap.data().username,
         "role": docSnap.data().role
     }
-    return (cUser)
+    return (currentUser)
 }
 
 export default NavigationBar
