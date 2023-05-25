@@ -51,7 +51,7 @@ export default function EditTeacherForm({toggleTeacherView, data, changeIsDataCh
     {formSubmitted? <p1></p1> : 
     <div className="editTeacherBox">
     <img src= {silhouette} className="editTeacherPic"/>
-    <Button variant= "contained" onClick={handleEdit} className="editTeacherEditButton">{isEditButton}</Button>
+    {(currentUser === "admin") && <Button variant= "contained" onClick={handleEdit} className="editTeacherEditButton">{isEditButton}</Button>}
     <form method="post" onSubmit={handleSubmit}>
     <label>
       Name: 
