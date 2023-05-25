@@ -19,13 +19,13 @@ export default function TeacherData({data, isEdit, changeIsDataChanged, isDataCh
     return (
         <>
             {data.map((element, index) =>
-            <div className="studentLine">
+            <div className="teacherLine">
             <img src={silhouette} className='img' onClick={() => {toggleTeacherView(index)}}/>
-            <div className='studentNameTextBox'>
-            <h1 className='studentNameText'>Name: {element.data.name}</h1>
+            <div className='teacherNameTextBox'>
+            <h1 className='teacherNameText'>Name: {element.data.name}</h1>
             </div>
-            <div className='studentYearTextBox'>
-            <h1 className='studentGradeText'>Grade Taught: {element.data.gradeTaught}</h1>
+            <div className='teacherYearTextBox'>
+            <h1 className='teacherGradeText'>Grade Taught: {element.data.gradeTaught}</h1>
             </div>
             <div className= "buttonBox">
             {isEdit? 
