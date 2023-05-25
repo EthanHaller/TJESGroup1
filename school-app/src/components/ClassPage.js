@@ -149,7 +149,7 @@ function ClassPage() {
               <TextField value={newStudent.name} onChange={(e) => handleNewStudentChange('name', e.target.value)} label="Name" />
             </Grid>
             <Grid item xs={4}>
-              <TextField value={newStudent.grade} onChange={(e) => handleNewStudentChange('grade', e.target.value)} label="Grade" />
+              <TextField value={newStudent.grade} onChange={(e) => handleNewStudentChange('grade', e.target.value)} label="Class grade" />
             </Grid>
             <Grid item xs={4}>
               <Button variant="contained" color="primary" onClick={handleAddClick}>
