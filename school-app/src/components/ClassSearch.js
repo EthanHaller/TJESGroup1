@@ -96,6 +96,7 @@ function ClassSearch() {
 
   return (
     <div>
+      <div style={{ textAlign: 'center' }}>
       <h2>TJES Class Search Page</h2>
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '16px' }}>
         <TextField id="outlined-basic" label="Teacher Last Name" variant="outlined" value={inputValue} onChange={handleNameChange} />
@@ -127,7 +128,7 @@ function ClassSearch() {
           <TableHead>
             <TableRow>
               <TableCell style={{ fontWeight: 'bold' }}>
-                <Button>Teacher</Button>
+                Teacher
               </TableCell>
               <TableCell style={{ fontWeight: 'bold' }}>Subject</TableCell>
               <TableCell style={{ fontWeight: 'bold' }}>Grade Level</TableCell>
@@ -148,6 +149,7 @@ function ClassSearch() {
           </TableBody>
         </Table>
       </TableContainer>
+      </div>
     </div>
   );
 }
