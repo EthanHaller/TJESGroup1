@@ -11,6 +11,7 @@ function ClassPage() {
   const [studentsData, setStudentsData] = useState([]);
   const [editIndex, setEditIndex] = useState(-1);
   const [editValue, setEditValue] = useState({});
+  const [teacherData, setTeacherData] = useState(null);
 
   // Use a specific class ID
   const { classId } = useParams();
@@ -21,24 +22,35 @@ function ClassPage() {
     const fetchClassData = async () => {
       const classDoc = doc(db, 'classes', classId);
       const classDataSnapshot = await getDoc(classDoc);
-
+  
       if (classDataSnapshot.exists) {
         const data = classDataSnapshot.data();
         setClassData(data);
-
-        const studentsPromises = data.roster?.map((studentId) => getDoc(doc(db, 'students', studentId))) || [];
+  
+        // Fetch the students data
+        const studentsPromises = data.roster.map((studentId) => getDoc(doc(db, 'students', studentId)));
         const studentsSnapshots = await Promise.all(studentsPromises);
-
+  
         const studentsData = studentsSnapshots.map(snapshot => ({
           ...snapshot.data(),
-          grade: snapshot.data().grades?.[data.subject], // Make sure grades and subject exist
+          grade: snapshot.data().grades[data.subject],
         }));
         setStudentsData(studentsData);
+  
+        // Fetch the teacher data
+        const teacherDoc = doc(db, 'teachers', data.teacher);
+        const teacherDataSnapshot = await getDoc(teacherDoc);
+  
+        if (teacherDataSnapshot.exists) {
+          setTeacherData(teacherDataSnapshot.data());
+        } else {
+          console.log('No such teacher document!');
+        }
       } else {
         console.log('No such document!');
       }
     };
-
+  
     fetchClassData();
   }, [classId]);
 
@@ -92,7 +104,7 @@ function ClassPage() {
             <Typography variant="h4" component="div" gutterBottom>{classData.name}</Typography>
             <Typography variant="h6" component="div"><b>Subject:</b> {classData.subject}</Typography>
             <Typography variant="h6" component="div"><b>Grade:</b> {classData.grade}</Typography>
-            <Typography variant="h6" component="div"><b>Teacher:</b> {classData.teacher}</Typography>
+            <Typography variant="h6" component="div"><b>Teacher:</b> {teacherData ? teacherData.name : 'Loading...'}</Typography>
             <Typography variant="h6" component="div"><b>Class Size:</b> {classData.num}</Typography>
           </CardContent>
         </Card>
