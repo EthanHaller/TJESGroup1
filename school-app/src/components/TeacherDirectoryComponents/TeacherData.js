@@ -12,8 +12,8 @@ export default function TeacherData({data, isEdit, changeIsDataChanged, isDataCh
         setIsTeacherView(!isTeacherView);
         setForTeacherView(index);
     }
-    function deleteTeacher(teacher) {
-        deleteDoc(doc(db, "teachers", teacher.id));
+    async function deleteTeacher(teacher) {
+        await deleteDoc(doc(db, "teachers", teacher.id));
         changeIsDataChanged(!isDataChanged);
     }
     return (

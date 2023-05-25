@@ -12,8 +12,8 @@ export default function StudentData({data, isEdit, changeIsDataChanged, isDataCh
         setIsStudentView(!isStudentView);
         setForStudentView(index);
     }
-    function deleteStudent(student) {
-        deleteDoc(doc(db, "students", student.id));
+    async function deleteStudent(student) {
+        await deleteDoc(doc(db, "students", student.id));
         changeIsDataChanged(!isDataChanged);
     }
     return (

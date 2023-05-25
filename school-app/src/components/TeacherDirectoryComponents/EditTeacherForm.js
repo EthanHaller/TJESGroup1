@@ -16,7 +16,7 @@ export default function EditTeacherForm({toggleTeacherView, data, changeIsDataCh
         setIsVisible("hidden")
     },[isEdit])
 
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         // Prevent the browser from reloading the page
         e.preventDefault();
     
@@ -27,7 +27,7 @@ export default function EditTeacherForm({toggleTeacherView, data, changeIsDataCh
    
         const formJson = Object.fromEntries(formData.entries());
         setFormSubmitted(true);
-        updateDoc(doc(db, "teachers",data.id), {
+        await updateDoc(doc(db, "teachers",data.id), {
         name: formJson.name,
         gradeTaught: formJson.gradeTaught,
         email: formJson.email,
