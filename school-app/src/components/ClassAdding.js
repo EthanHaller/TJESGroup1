@@ -6,11 +6,12 @@ import {Button, TextField} from '@mui/material';
 function ClassAdding() {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const [displayError, setDisplayError] = useState(false);
+  const [teacherError, setTeacherError] = useState(false);
   const [classData, setClassData] = useState({
     teacher: '',
     subject: '',
     grade: 0,
-    num: 0
+    num: 0,
   });
 
   const handlePopupOpen = () => {
@@ -19,6 +20,7 @@ function ClassAdding() {
 
   const handlePopupClose = () => {
     setDisplayError(false);
+    setTeacherError(false);
     setIsPopupOpen(false);
   };
 
@@ -32,7 +34,7 @@ function ClassAdding() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+  
     try {
       // Check if there is an existing class with the same name, subject, and grade
       const querySnapshot = await getDocs(collection(db, 'classes'));
@@ -44,26 +46,39 @@ function ClassAdding() {
           data.grade === classData.grade
         );
       });
-      
+  
       if (existingClass) {
         // Display an error message to the user
         console.log('Error: Class already exists with the same name, subject, and grade.');
         setClassData({ teacher: '', subject: '', grade: 0, num: 0 });
         setDisplayError(true);
-
       } else {
-        // Save classData to the database using Firebase Firestore
-        await addDoc(collection(db, 'classes'), classData);
-        // Reset the classData state
-        setClassData({ teacher: '', subject: '', grade: 0, num: 0 });
-        setDisplayError(false);
-        // Close the popup
-        setIsPopupOpen(false);
+        // Check if the entered teacher name exists in the "teachers" collection
+        const teacherQuerySnapshot = await getDocs(collection(db, 'teachers'));
+        const teacherDoc = teacherQuerySnapshot.docs.find((doc) => doc.data().name === classData.teacher);
+  
+        if (teacherDoc) {
+          // Save the class data with the teacher field as the Document ID of the teacher
+          const teacherId = teacherDoc.id;
+          const classDataWithTeacherId = { ...classData, teacher: teacherId, roster: [] };
+          await addDoc(collection(db, 'classes'), classDataWithTeacherId);
+          // Reset the classData state
+          setClassData({ teacher: '', subject: '', grade: 0, num: 0});
+          setDisplayError(false);
+          // Close the popup
+          setIsPopupOpen(false);
+        } else {
+          // Display an error message if the teacher doesn't exist
+          console.log('Error: Teacher does not exist.');
+          setClassData({ teacher: '', subject: '', grade: 0, num: 0 });
+          setTeacherError(true);
+        }
       }
     } catch (error) {
       console.log('Error adding class:', error);
     }
   };
+  
   
 
   return (
@@ -73,9 +88,6 @@ function ClassAdding() {
       {isPopupOpen && (
         <div className="popup">
           <div className="popup-content"> <br></br>
-            <span className="close" onClick={handlePopupClose}>
-              Close
-            </span>
             <form onSubmit={handleSubmit}>
               <TextField
                 label="Teacher"
@@ -118,9 +130,16 @@ function ClassAdding() {
                 sx={{ width: '200px' }}
                 margin="normal"
               />
-              <Button variant='contained' type="submit">Confirm</Button>
+              
+              
             </form>
+            
+            <Button varient='contained' className="close" onClick={handlePopupClose}>
+              Close
+            </Button>
+            <Button variant='contained' type="submit" onClick={handleSubmit}>Confirm</Button>
             {displayError && <p>Error: Class already exists with the same name, subject, and grade.</p>}
+            {teacherError && <p style={{ color: 'red', fontWeight: 'bold', fontFamily: 'Arial' }}>Error: That teacher does not exist in the directory.</p>}
           </div>
         </div>
       )}
