@@ -16,8 +16,10 @@ import {
   TableHead,
   TableRow,
 } from '@mui/material';
+import { useOutletContext } from 'react-router-dom';
 
 function ClassSearch() {
+  const currentUser = useOutletContext()
   const [selectedGrade, setSelectedGrade] = useState('');
   const [inputValue, setInputValue] = useState('');
   const [classes, setClasses] = useState([]);
@@ -114,7 +116,7 @@ function ClassSearch() {
           Search
         </Button>
       </div>
-      <ClassAdding />
+      {(currentUser.role === "admin") && <ClassAdding />}
       <TableContainer>
         <Table>
           <TableHead>
