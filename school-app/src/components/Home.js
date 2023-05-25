@@ -1,8 +1,10 @@
 import React from 'react';
 import { Typography, Box } from '@mui/material';
 import Events from './Events';
+import { useOutletContext } from 'react-router-dom';
 
 function Home() {
+  const currentUser = useOutletContext();
   
     return (
       <React.Fragment>
@@ -19,7 +21,7 @@ function Home() {
         </Box>
         <Box pt='50px'>
           <Typography variant='h3' display='flex' justifyContent='center'>Upcoming Events</Typography>
-          <Events />
+          <Events currentUser={currentUser} />
         </Box>
       </React.Fragment>
     );

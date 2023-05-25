@@ -5,6 +5,7 @@ import NavigationBar from './components/NavigationBar';
 import Home from './components/Home';
 import ClassSearch from './components/ClassSearch';
 import StudentDirectoryPage from './components/StudentDirectoryComponents/StudentDirectoryPage'
+import TeacherDirectoryPage from './components/TeacherDirectoryComponents/TeacherDirectoryPage'
 
 function App() {
   return (
@@ -15,7 +16,7 @@ function App() {
           <Route path="/:id/home" element={<Home />} />
           <Route path="/:id/classes" element={<ClassSearch />} />
           <Route path="/:id/students" element={<StudentDirectoryPage />} />
-          {/* <Route path="/:id/staff" element={} /> */}
+          <Route path="/:id/staff" element={<TeacherDirectoryPage />} />
         </Route>
       </Routes>
     </BrowserRouter>
