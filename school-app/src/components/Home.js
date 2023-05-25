@@ -17,7 +17,7 @@ function Home() {
             borderBottomStyle: 'solid'
           }}
         >
-          <Typography color='white' sx={{ typography: {xs: 'h5', sm: 'h4', md: 'h3', lg: 'h1'}, p: '50px' }}>Thomas Jefferson Elementary School</Typography>
+          <Typography color='white' sx={{ typography: {xs: 'h5', sm: 'h4', md: 'h3', lg: 'h2', xl: 'h1'}, p: '50px' }}>Thomas Jefferson Elementary School</Typography>
         </Box>
         <Box pt='50px'>
           <Typography variant='h3' display='flex' justifyContent='center'>Upcoming Events</Typography>
