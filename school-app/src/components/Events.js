@@ -5,40 +5,17 @@ import { getDocs, collection } from "firebase/firestore";
 import {useEffect, useState} from 'react';
 import { Box, Typography } from "@mui/material";
 function Events() {
-        const [calendarEvents, setCalendarEvents] = useState([]);
-        const fetchEvents = async (successCallback, failureCallback) => {
-        const events = [];
-      
-        try {
-          getDocs(collection(db, 'calendar'))
-          .then((allDocs) => {
-            allDocs.forEach((doc) => {
-                const { title, start, end} = doc.data();
-                events.push({ title, start, end});
-            }
-            );
-        });
-          successCallback(events);
-        } catch (error) {
-          failureCallback(error);
-        }
-      };
-      useEffect(() => {
-        fetchEvents( 
-          setCalendarEvents,
-          console.error
-        );
-      }, []);
-    //   function updateVar() {
-    //     setCalendarEvents(calendarEvents);
-    //     setRendered(true);
-    //   }
-    //   if(!rendered) {
-    //     const myTimeout = setTimeout(updateVar, 1000);
-    //   }
-    //   useEffect( ()=> {
+    const [calendarEvents, setCalendarEvents] = useState([]);
 
-    //   }, [calendarEvents]);
+    useEffect(() => {
+        const fetchEvents = async () => {
+            const snapshot = await getDocs(collection(db, 'calendar'));
+            const eventList = snapshot.docs.map(doc => doc.data());
+            setCalendarEvents(eventList);
+        }
+        
+        fetchEvents();
+    }, []);
     return (
       <MyCalendar event_array = {calendarEvents}/>
     );
