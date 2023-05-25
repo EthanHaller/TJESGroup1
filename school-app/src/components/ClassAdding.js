@@ -134,7 +134,7 @@ function ClassAdding() {
               
             </form>
             
-            <Button varient='contained' className="close" onClick={handlePopupClose}>
+            <Button varient='contained' className="close" sx={{ color: 'red' }} onClick={handlePopupClose}>
               Close
             </Button>
             <Button variant='contained' type="submit" onClick={handleSubmit}>Confirm</Button>
