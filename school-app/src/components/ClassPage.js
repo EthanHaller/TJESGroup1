@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { doc, getDoc, setDoc, updateDoc, addDoc, collection } from 'firebase/firestore';
 import db from '../Firebase';
 import { Box, Card, CardContent, TextField, Button, Typography, Container, Grid, Paper } from '@mui/material';
 import { useParams, Link } from 'react-router-dom';
-
-
 
 function ClassPage() {
 
@@ -13,6 +11,7 @@ function ClassPage() {
   const [editIndex, setEditIndex] = useState(-1);
   const [editValue, setEditValue] = useState({});
   const [teacherData, setTeacherData] = useState(null);
+  const [newStudent, setNewStudent] = useState({name: '', grade: ''});
 
   // Use a specific class ID
   const params = useParams();
@@ -28,7 +27,6 @@ function ClassPage() {
         const data = classDataSnapshot.data();
         setClassData(data);
   
-        // Fetch the students data
         const studentsPromises = data.roster.map((studentId) => getDoc(doc(db, 'students', studentId)));
         const studentsSnapshots = await Promise.all(studentsPromises);
   
@@ -38,7 +36,6 @@ function ClassPage() {
         }));
         setStudentsData(studentsData);
   
-        // Fetch the teacher data
         const teacherDoc = doc(db, 'teachers', data.teacher);
         const teacherDataSnapshot = await getDoc(teacherDoc);
   
@@ -54,8 +51,6 @@ function ClassPage() {
   
     fetchClassData();
   }, [classId]);
-
-
 
   const handleEditClick = (index) => {
     setEditIndex(index);
@@ -81,18 +76,47 @@ function ClassPage() {
         },
       });
 
-      // Update the local state with the updated student data
       setStudentsData(newStudentsData);
       setEditIndex(-1);
       setEditValue({});
     }
   };
+
   const handleEditChange = (field, value) => {
     setEditValue({
       ...editValue,
       [field]: value
     });
   }
+
+  const handleAddClick = async () => {
+    const newStudentDoc = await addDoc(collection(db, 'students'), {
+      name: newStudent.name,
+      grades: {
+        [classData.subject]: newStudent.grade,
+      },
+    });
+
+    const newClassData = {
+      ...classData,
+      num: classData.num + 1,
+      roster: [...classData.roster, newStudentDoc.id]
+    };
+
+    await updateDoc(doc(db, 'classes', classId), newClassData);
+
+    setClassData(newClassData);
+    setStudentsData([...studentsData, {...newStudent, id: newStudentDoc.id}]);
+    setNewStudent({name: '', grade: ''});
+  };
+
+  const handleNewStudentChange = (field, value) => {
+    setNewStudent({
+      ...newStudent,
+      [field]: value
+    });
+  }
+
   if (!classData) {
     return <div>Loading...</div>;
   }
@@ -120,6 +144,24 @@ function ClassPage() {
             </Typography>
           </CardContent>
         </Card>
+        <Box my={4}>
+          <Typography variant="h5" gutterBottom>
+            <b>Add New Student</b>
+          </Typography>
+          <Grid container spacing={2} alignItems="center">
+            <Grid item xs={4}>
+              <TextField value={newStudent.name} onChange={(e) => handleNewStudentChange('name', e.target.value)} label="Name" />
+            </Grid>
+            <Grid item xs={4}>
+              <TextField value={newStudent.grade} onChange={(e) => handleNewStudentChange('grade', e.target.value)} label="Class grade" />
+            </Grid>
+            <Grid item xs={4}>
+              <Button variant="contained" color="primary" onClick={handleAddClick}>
+                Add Student
+              </Button>
+            </Grid>
+          </Grid>
+        </Box>
         {studentsData.length > 0 ? (
           <Box my={4}>
             <Paper elevation={3} sx={{ padding: 2 }}>
