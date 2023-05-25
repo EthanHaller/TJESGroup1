@@ -19,6 +19,7 @@ import {
 import { Link, useOutletContext, useParams } from 'react-router-dom';
 
 function ClassSearch() {
+  const [isAdmin, setIsAdmin] = useState(false);
   const userId = useParams().id
   const currentUser = useOutletContext()
   const [selectedGrade, setSelectedGrade] = useState('');
@@ -55,6 +56,9 @@ function ClassSearch() {
   };
 
   useEffect(() => {
+    if(currentUser && currentUser.role === 'admin') {
+      setIsAdmin(true);
+    }
     const fetchDocs = async () => {
       try {
         const classCollection = collection(db, 'classes');
@@ -88,7 +92,7 @@ function ClassSearch() {
     };
 
     fetchDocs();
-  }, []);
+  }, [currentUser]);
 
   return (
     <div>
@@ -117,7 +121,7 @@ function ClassSearch() {
           Search
         </Button>
       </div>
-      {(currentUser.role === "admin") && <ClassAdding />}
+      {(isAdmin) && <ClassAdding />}
       <TableContainer>
         <Table>
           <TableHead>
