@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { AppBar, Toolbar, Button, Box, IconButton, Typography, ButtonGroup } from '@mui/material'
 import { Link, Outlet, useParams } from 'react-router-dom'
 import HomeIcon from '@mui/icons-material/Home';
+import LogoutIcon from '@mui/icons-material/Logout';
 import db from '../Firebase'
 import { doc, getDoc } from 'firebase/firestore';
 
@@ -26,16 +27,18 @@ function NavigationBar() {
                     <HomeIcon sx={{ color: 'white' }} />
                 </IconButton>
                 <Typography variant='body1' ml='20px' mr='20px'>{currentUser && ("Welcome, " + currentUser.username)}</Typography>
-                <ButtonGroup variant="contained">
+                <ButtonGroup variant="contained" disableElevation>
                     <Button sx={{ color: 'white' }} component={Link} to={"/" + userId + "/classes"}>Class List</Button>
                     <Button sx={{ color: 'white' }} component={Link} to={"/" + userId + "/students"}>Student Directory</Button>
                     <Button sx={{ color: 'white' }} component={Link} to={"/" + userId + "/staff"}>Staff Directory</Button>
                 </ButtonGroup>
                 <Box sx={{ flexGrow: 1 }}></Box>
-                <Button variant='contained' sx={{ color: 'white', mr: '15px' }} component={Link} to="/">Logout</Button>
+                <IconButton component={Link} to={"/"}>
+                    <LogoutIcon sx={{ color: 'white' }} />
+                </IconButton>
                 </Toolbar>
             </AppBar>
-            <div style={{ height: '64px' }}></div>
+            <Toolbar />
             <Outlet context={currentUser} />
         </React.Fragment>
     )

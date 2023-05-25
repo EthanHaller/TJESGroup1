@@ -3,7 +3,6 @@ import db from '../Firebase'
 import React from 'react'
 import { getDocs, collection } from "firebase/firestore";
 import {useEffect, useState} from 'react';
-import { Box, Typography } from "@mui/material";
 function Events(props) {
     const [calendarEvents, setCalendarEvents] = useState([]);
     const [isAdmin, setIsAdmin] = useState(false);

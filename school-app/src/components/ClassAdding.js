@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import  db  from '../Firebase';
-import { collection, doc, getDocs, addDoc } from 'firebase/firestore';
+import { collection, getDocs, addDoc } from 'firebase/firestore';
 import {Button, TextField} from '@mui/material';
 
 function ClassAdding() {
