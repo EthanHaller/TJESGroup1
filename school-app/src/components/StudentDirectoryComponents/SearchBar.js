@@ -86,7 +86,9 @@ export default function SearchBar() {
             </div>
             {!sortedStudents? <p1></p1> : 
             <div className='resultsTable'>
+                <div className='scrollBox'>
                     <StudentData data= {sortedStudents} isEdit={isEdit} changeIsDataChanged={changeIsDataChanged} isDataChanged={isDataChanged}/>
+                    </div>
             </div>
             }
             
