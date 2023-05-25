@@ -65,7 +65,7 @@ export default function SearchBar({ currentUser }) {
       return (
         <div>
             <div className='searchBar'>
-            <form method="post" onSubmit= {handleChange}>
+            <form method="post" onSubmit= {handleChange} className='searchForm'>
             <label className='searchLabel'> Search:
             <TextField
             className='searchInput'

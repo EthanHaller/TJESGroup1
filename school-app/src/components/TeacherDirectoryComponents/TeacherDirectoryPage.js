@@ -3,7 +3,7 @@ import SearchBar from './SearchBar';
 import './Directory.css';
 import { useOutletContext } from 'react-router-dom';
 export default function TeacherDirectory() {
-    const currentUser = useOutletContext()
+    const currentUser = useOutletContext();
 
         return (
             <>

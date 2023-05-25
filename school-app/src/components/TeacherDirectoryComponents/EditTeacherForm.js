@@ -4,7 +4,7 @@ import db from "../../Firebase";
 import silhouette from './silhouette.png'
 import { Button } from "@mui/material";
 export default function EditTeacherForm({toggleTeacherView, data, changeIsDataChanged, isDataChanged, currentUser}) {
-
+  console.log(currentUser)
     const [isEdit, setIsEdit] = useState(true);
     const [formSubmitted, setFormSubmitted] = useState(false);
     const [isVisible, setIsVisible] = useState("hidden")
@@ -51,7 +51,7 @@ export default function EditTeacherForm({toggleTeacherView, data, changeIsDataCh
     {formSubmitted? <p1></p1> : 
     <div className="editTeacherBox">
     <img src= {silhouette} className="editTeacherPic"/>
-    {(currentUser === "admin") && <Button variant= "contained" onClick={handleEdit} className="editTeacherEditButton">{isEditButton}</Button>}
+    {(currentUser.role === "admin") && <Button variant= "contained" onClick={handleEdit} className="editTeacherEditButton">{isEditButton}</Button>}
     <form method="post" onSubmit={handleSubmit}>
     <label>
       Name: 

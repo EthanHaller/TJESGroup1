@@ -61,7 +61,7 @@ export default function SearchBar({ currentUser }) {
         changeIsDataChanged(!isDataChanged);
       };
       
-
+      if(currentUser === null) return ( <p>Loading...</p> )
       return (
         <div>
             <div className='searchBar'>
