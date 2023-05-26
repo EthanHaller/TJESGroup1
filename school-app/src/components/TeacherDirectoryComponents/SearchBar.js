@@ -60,6 +60,12 @@ export default function SearchBar({ currentUser }) {
         setSearchInput(formJson.searched)
         changeIsDataChanged(!isDataChanged);
       };
+
+      //clear search button
+      function clearSearch() {
+        setSearchInput("");
+        changeIsDataChanged(!isDataChanged);
+      }
       
       if(currentUser === null) return ( <p>Loading...</p> )
       return (
@@ -77,6 +83,7 @@ export default function SearchBar({ currentUser }) {
             </label> 
             <Button type='submit' variant='contained'>Search</Button>
             </form>
+            <Button variant='contained' onClick={clearSearch} className='editButton'>Clear Search</Button>
             {(currentUser.role === "admin") && (isEdit? <Button className="editButton" onClick={handleClick} variant='contained' color='error'>Stop Editing</Button> : 
             <Button className="editButton" onClick={handleClick} variant='contained'>Edit</Button>
             )}
